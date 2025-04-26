@@ -6,3 +6,4 @@ opencv-python
 mediapipe
 transformers
 diffusers
+gunicorn
