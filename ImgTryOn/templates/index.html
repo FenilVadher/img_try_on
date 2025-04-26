@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Fashion Try-On</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center py-10">
+
+    <h1 class="text-4xl font-bold text-blue-400 mb-10">Virtual Fashion Try-On</h1>
+
+    <form action="/" method="post" enctype="multipart/form-data" class="w-full max-w-4xl bg-gray-800 rounded-2xl shadow-lg p-8 space-y-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Person Image Upload -->
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Upload your photo</h2>
+                <label for="person_image" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-xl p-6 hover:bg-gray-700 cursor-pointer relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16v4m0 0h10m-10 0v-4m0 0h10m-10 0V5m0 0h10m-10 0H5m14 0h-2" />
+                    </svg>
+                    <p class="text-gray-400">Drag & drop or click to upload</p>
+                    <input id="person_image" type="file" name="person_image" class="hidden" required onchange="showFileName('person_image', 'person_filename')">
+                </label>
+                <p id="person_filename" class="text-green-400 text-sm mt-2 text-center"></p>
+            </div>
+
+            <!-- T-Shirt Image Upload -->
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Upload garment image</h2>
+                <label for="tshirt_image" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-xl p-6 hover:bg-gray-700 cursor-pointer relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16v4m0 0h10m-10 0v-4m0 0h10m-10 0V5m0 0h10m-10 0H5m14 0h-2" />
+                    </svg>
+                    <p class="text-gray-400">Drag & drop or click to upload</p>
+                    <input id="tshirt_image" type="file" name="tshirt_image" class="hidden" required onchange="showFileName('tshirt_image', 'tshirt_filename')">
+                </label>
+                <p id="tshirt_filename" class="text-green-400 text-sm mt-2 text-center"></p>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center">
+            <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition">
+                🚀 Perform Virtual Try-On
+            </button>
+        </div>
+
+    </form>
+
+    {% if result_img %}
+    <div class="w-full max-w-4xl mt-10 bg-gray-800 rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">🎉 Your Virtual Try-On Result</h2>
+        <div class="flex justify-center">
+            <img src="{{ url_for('static', filename=result_img) }}" alt="Result Image" class="rounded-xl shadow-lg w-full max-w-md">
+        </div>
+    </div>
+    {% endif %}
+
+    <script>
+        function showFileName(inputId, filenameId) {
+            const input = document.getElementById(inputId);
+            const filename = document.getElementById(filenameId);
+            if (input.files.length > 0) {
+                filename.textContent = "✔️ " + input.files[0].name + " uploaded";
+            } else {
+                filename.textContent = "";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
