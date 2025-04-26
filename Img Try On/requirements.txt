@@ -1,8 +1,0 @@
-Flask
-torch
-torchvision
-Pillow
-opencv-python
-mediapipe
-transformers
-diffusers
